@@ -1,0 +1,85 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Configure debug",
+      "type": "shell",
+      "command": "cmake --preset debug",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build course",
+      "type": "shell",
+      "command": "cmake --build --preset debug",
+      "dependsOn": "Configure debug",
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$gcc"
+    },
+    {
+      "label": "Build CMake target...",
+      "type": "shell",
+      "command": "cmake --build --preset debug --target ${input:target}",
+      "dependsOn": "Configure debug",
+      "dependsOrder": "sequence",
+      "problemMatcher": "$gcc"
+    },
+    {
+      "label": "Build hello_opencv",
+      "type": "shell",
+      "command": "cmake --build --preset debug --target hello_opencv",
+      "dependsOn": "Configure debug",
+      "dependsOrder": "sequence",
+      "problemMatcher": "$gcc"
+    },
+    {
+      "label": "Run course binary...",
+      "type": "shell",
+      "command": "${workspaceFolder}/tools/run-binary.sh",
+      "args": [
+        "${workspaceFolder}/build/debug"
+      ],
+      "dependsOn": "Build course",
+      "dependsOrder": "sequence",
+      "presentation": {
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build documentation",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/mkdocs",
+      "args": [
+        "build",
+        "--strict"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Serve documentation",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/mkdocs",
+      "args": [
+        "serve"
+      ],
+      "isBackground": true,
+      "presentation": {
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "target",
+      "type": "promptString",
+      "description": "CMake target name (for example: hello_opencv)"
+    }
+  ]
+}

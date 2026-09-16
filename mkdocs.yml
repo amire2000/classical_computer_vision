@@ -1,0 +1,21 @@
+site_name: Classical Computer Vision Course
+theme:
+  name: material
+extra_css:
+  - stylesheets/quiz.css
+extra_javascript:
+  - javascripts/quiz.js
+markdown_extensions:
+  - pymdownx.snippets:
+      base_path:
+        - .
+nav:
+  - Home: index.md
+  - Modules:
+      - Module 0: modules/00_setup_environment/index.md
+      - Module 1:
+          - Overview: modules/01_image_foundations/index.md
+          - Session 1: modules/01_image_foundations/session-01-pixels.md
+          - Session 2: modules/01_image_foundations/session-02-memory-layout.md
+          - Session 3: modules/01_image_foundations/session-03-grayscale.md
+          - Session 4: modules/01_image_foundations/session-04-resize-compare.md
